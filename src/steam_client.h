@@ -41,6 +41,7 @@ class SteamClient {
 
   static SteamClient* GetInstance();
   static void StartSteamLoop();
+  static void Shutdown();
 
  private:
   SteamClient();
