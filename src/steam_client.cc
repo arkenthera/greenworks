@@ -66,6 +66,11 @@ SteamClient* SteamClient::GetInstance() {
   return g_steam_client;
 }
 
+void SteamClient::Shutdown() {
+  delete g_steam_client;
+  g_steam_client = NULL;
+}
+
 void SteamClient::OnGameOverlayActivated(GameOverlayActivated_t* callback) {
   for (size_t i = 0; i < observer_list_.size(); ++i) {
     observer_list_[i]->OnGameOverlayActivated(

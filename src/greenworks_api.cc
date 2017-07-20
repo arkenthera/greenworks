@@ -39,6 +39,17 @@ NAN_METHOD(InitAPI) {
   info.GetReturnValue().Set(Nan::New(success));
 }
 
+NAN_METHOD(ShutdownAPI) {
+  Nan::HandleScope scope;
+
+  greenworks::SteamClient::Shutdown();
+
+  SteamAPI_Shutdown();
+
+  info.GetReturnValue().Set(Nan::New(true));
+}
+
+
 NAN_MODULE_INIT(init) {
   // Set internal steam event handler.
   v8::Local<v8::Object> steam_events = Nan::New<v8::Object>();
@@ -50,6 +61,10 @@ NAN_MODULE_INIT(init) {
   Nan::Set(target,
            Nan::New("initAPI").ToLocalChecked(),
            Nan::New<v8::FunctionTemplate>(InitAPI)->GetFunction());
+
+  Nan::Set(target,
+            Nan::New("shutdown").ToLocalChecked(),
+            Nan::New<v8::FunctionTemplate>(ShutdownAPI)->GetFunction());           
 }
 
 }  // namespace
